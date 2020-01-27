@@ -1,19 +1,193 @@
+# Criando uma biblioteca para React
+
+No dia a dia utilizamos várias bibliotecas para React ou Javascript com o objetivo de facilitar nosso trabalho. Bibliotecas de componentes, datas, rotas, gerenciamento de estados, entre outras, são comuns na criação de aplicações. Mas você já parou para pensar em tudo que necessita para criar bibliotecas?
+
+Se você chegou até aqui é porque tem interesse em aprender como desenvolver essas bibliotecas. Existem algumas ferramentas, CLis e scripts, que facilitam e automatizam esse processo, mas vamos entender de forma manual como configurar e desenvolver uma biblioteca.
+
+## Vamos primeiro criar as pastas e inicializar um projeto através do yarn
+
+Nosso primeiro passo é iniciar um projeto através do yarn e criar algumas pastas
+
+```bash
 mkdir react-library-test
 cd react-library-test
-yarn init
-yarn add react react-dom prop-types
 mkdir src
-cd src
-Criar arquivo src/index.js
-Criar arquivo src/MyLibrary.js
-yarn add -D @babel/core @babel/cli @babel/preset-env @babel/preset-react
+mkdir public
+yarn init
+```
+
+## Agora vamos instalar o react e sua base de bibliotecas
+
+O objetivo aqui é desenvolver biblioteca para React, então vamos instalar sua base de bibliotecas.
+
+```bash
+yarn add -D react react-dom prop-types
+```
+
+## Já podemos iniciar nosso componente que se tornará uma biblioteca
+
+Nessa fase iremos de fato criar a nossa biblioteca react
+
+### Crie o arquivo `src/MyLibrary.js` e coloque o seguinte código
+
+```jsx
+export { default } from "./MyLibrary";
+```
+
+### Crie o arquivo `src/index.js` e coloque o seguinte código
+
+```jsx
+import React from "react";
+
+const MyLibraryComponent = () => <div>MyLibrary</div>;
+
+export default MyLibraryComponent;
+```
+
+## Vamos agora criar uma área para visualizar o componente
+
+### Crie o arquivo `public/index.html`
+
+Para iniciarmos a aplicação através do webpack precisamos de um arquivo base de html, para isso iremos criar o arquivo
+`index.html` e colocar o seguinte conteúdo:
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>MyLibrary</title>
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+### Crie o arquivo `public/index.js`
+
+Precisamos também criar nosso arquivo jsx de entrada, normalmente nas aplicações esse arquivo é a base da mesma, aqui só usaremos para testar como aplicação.
+
+```jsx
+import React from "react";
+import ReactDOM from "react-dom";
+import MyLibrary from "../src";
+
+const App = () => <MyLibrary />;
+
+ReactDOM.render(<App />, document.getElementById("root"));
+```
+
+## Está na hora de criarmos as configurações
+
+Se tudo deu certo até aqui, agora vamos colocar as configurações iniciais. Iremos configurar o Babel para transpilar nossa biblioteca para js e o Webpack para podermos iniciar uma aplicação e verificar como ficou nossa biblioteca.
+
+### Configurando o Babel
+
+O [Babel](https://babeljs.io/) é um famoso transpilador javascript, que nos possibilitará converter nossa aplicação react em javascript puro através de alguns presets. Vamos primeiro instalar as dependências necessárias.
+
+```bash
+yarn add -D @babel/core @babel/cli @babel/preset-env @babel/preset-react cross-env
+```
+
+Após isso vamos criar o arquivo `.babelrc` e colocar a seguinte configuração:
+
+```json
+{
+  "presets": ["@babel/preset-env", "@babel/preset-react"]
+}
+```
+
+### Configurando o Webpack
+
+O [Webpack](https://webpack.js.org/) é um empacotador de módulo JavaScript de código aberto, vamos utilizar o mesmo junto com alguns plugins para iniciar uma aplicação e assim podermos testar nossa biblioteca. Vamos primeiro instalar as dependências necessárias.
+
+```bash
 yarn add -D webpack webpack-cli webpack-dev-server html-webpack-plugin babel-loader
-Criar configuração de webpack
-Criar configuração de babel
-Criar public/index.html
-Criar public/index.js
-Criar script de start -> webpack-dev-server --progress --inline --hot --port 8080
+```
+
+Agora vamos criar o arquivo `webpack.config.js`, que é o arquivo de configuração do webpack. E colocar o seguinte conteúdo:
+
+```js
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const path = require("path");
+
+const APP_PATH = "./public";
+
+const config = {
+  mode: "development",
+  entry: path.resolve(__dirname, APP_PATH),
+  output: {
+    path: path.resolve(__dirname, "build"),
+    filename: "bundle.js",
+    library: "default",
+    libraryTarget: "umd"
+  },
+
+  resolve: { extensions: [".js", ".json"] },
+
+  module: {
+    rules: [
+      { test: /\.(js)x?$/, loader: "babel-loader", exclude: /node_modules/ }
+    ]
+  },
+
+  plugins: [
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: path.join(APP_PATH, "index.html")
+    })
+  ]
+};
+
+module.exports = () => config;
+```
+
+## Já estamos chegando ao fim, vamos agora criar nossos scripts
+
+Vá no arquivo `package.json` e insira o seguinte código:
+
+```json
+{
+    "scripts": {
+        "start": "webpack-dev-server --progress --inline --hot --port 8080",
+        "build": "cross-env NODE_ENV=production babel src --out-dir dist"
+    } 
+}
+```
+
+## Agora sim, vamos ver o componente da nossa biblioteca
+
+Rode o comando abaixo na raiz do projeto.
+
+```bash
 yarn start
-criar script de build -> cross-env NODE_ENV=production babel src --out-dir dist
-yarn add -D cross-env
+```
+
+Acesse `http://localhost:8080/` e verá seu componente.
+
+[comment]: <> (Colocar exemplo de uma aplicação)
+
+## Vamos agora testar a transpilação
+
+Rode o comando abaixo na raiz do projeto.
+
+```bash
 yarn build
+```
+
+No diretório `dist` que está na raiz do seu projeto, você verá seu componente transpilado.
+
+## Hora de publicar
+
+Você já deve ta muito feliz por ver seu componente funcionando e querendo usar em seu projeto. Então vamos agora publicar esse componente, e essa é a etapa mais simples. Rode o seguinte comando:
+
+```bash
+npm publish
+```
+
+É possível que o componente já exista com esse nome, caso isso aconteça mude o nome do seu componente no arquivo `package.json`. Lembre que é possível colocar um escopo, utilizando a seguinte nomenclatura:
+
+```
+@[ESCOPO]/[NOME_PROJETO]
+```
