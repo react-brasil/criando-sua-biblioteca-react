@@ -149,10 +149,10 @@ Vá no arquivo `package.json` e insira o seguinte código:
 
 ```json
 {
-    "scripts": {
-        "start": "webpack-dev-server --progress --inline --hot --port 8080",
-        "build": "cross-env NODE_ENV=production babel src --out-dir dist"
-    } 
+  "scripts": {
+    "start": "webpack-dev-server --progress --inline --hot --port 8080",
+    "build": "cross-env NODE_ENV=production babel src --out-dir dist"
+  }
 }
 ```
 
@@ -191,3 +191,7 @@ npm publish
 ```
 @[ESCOPO]/[NOME_PROJETO]
 ```
+
+## Estrutura de Arquivos
+
+Caso tenha dúvida sobre a estrutura de arquivos geradas após o tutorial, acesse esse [link](ESTRUTURA.md)
