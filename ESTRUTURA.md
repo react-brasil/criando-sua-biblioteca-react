@@ -3,7 +3,7 @@
 Após seguir o tutorial sua estrutura de arquivos deve ficar da seguinte maneira:
 
 ```
-minha-biblioteca
+react-error-screen
 ├── node_modules
 ├── .babelrc
 ├── package.json
@@ -14,5 +14,5 @@ minha-biblioteca
 │   └── index.js
 └── src
     ├── index.js
-    └── MyLibrary.js
+    └── ErrorComponent.js
 ```

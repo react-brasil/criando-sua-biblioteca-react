@@ -17,21 +17,11 @@ const styles = {
     justifyContent: "center",
     flexDirection: "column",
     padding: "0% 30%",
-    boxSizing: "border-box"
-  },
-  error: {
-    fontSize: 100,
-    fontFamily: "arial",
-    fontWeight: 700,
-    margin: 0
-  },
-  description: {
-    fontSize: 40,
-    fontWeight: 100,
-    fontFamily: "arial",
-    margin: 0,
+    boxSizing: "border-box",
     textAlign: "center"
-  }
+  },
+  error: { fontSize: 100, fontFamily: "arial", fontWeight: 700, margin: 0 },
+  description: { fontSize: 40, fontWeight: 100, fontFamily: "arial", margin: 0 }
 };
 
 ErrorComponent.propTypes = {
