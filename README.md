@@ -4,11 +4,11 @@ No dia a dia utilizamos várias bibliotecas para React ou Javascript com o objet
 
 Se você chegou até aqui é porque tem interesse em aprender como desenvolver essas bibliotecas. Existem algumas ferramentas, CLIs e scripts, que facilitam e automatizam esse processo, você pode encontrar mais sobre essas ferramentas [aqui](BIBLIOTECAS.md). Mas aqui vamos entender de forma manual como configurar e desenvolver uma biblioteca.
 
-A biblioteca que iremos criar será um componente que estiliza uma mensagem de erro em requisições dentro de uma aplicação. Ele terá como propriedade um código de erro e uma descrição.
+A biblioteca que iremos criar será um componente que estiliza uma mensagem de erro em requisições dentro de uma aplicação. Ele terá como propriedade um código de erro e uma descrição. Ao seguir esse tutorial já pode mudar as referências de nome para sua biblioteca.
 
 ## Primeiro vamos criar as pastas e inicializar um projeto através do yarn
 
-Nosso primeiro passo é iniciar um projeto através do yarn e criar algumas pastas
+Nosso primeiro passo é iniciar um projeto através do yarn e criar algumas pastas, você pode mudar o nome da pasta para o de sua biblioteca.
 
 ```bash
 mkdir react-error-screen
@@ -186,9 +186,9 @@ const config = {
 module.exports = () => config;
 ```
 
-## Já estamos chegando ao fim, vamos agora criar nossos scripts
+## Já estamos chegando ao fim, vamos agora criar nossos scripts e ajustar o package.json
 
-Vá no arquivo `package.json` e insira o seguinte código:
+Para criar os scripts, vá no arquivo `package.json` e insira o seguinte código:
 
 ```json
 {
@@ -196,6 +196,15 @@ Vá no arquivo `package.json` e insira o seguinte código:
     "start": "webpack-dev-server --progress --inline --hot --port 8080",
     "build": "cross-env NODE_ENV=production babel src --out-dir dist"
   }
+}
+```
+
+Perceba que no build todo o conteúdo será transpilado para uma pasta chamada dist, para que outra lib ao utilizar seu módulo consiga utilizar na raiz modifique as propriedades `main e `module`.
+
+```json
+{
+  "main": "dist/index.js",
+  "module": "dist/index.js"
 }
 ```
 
@@ -229,7 +238,7 @@ Você já deve ta muito feliz por ver seu componente funcionando e querendo usar
 npm publish
 ```
 
-É possível que o componente já exista com esse nome, caso isso aconteça mude o nome do seu componente no arquivo `package.json`. Lembre que é possível colocar um escopo, utilizando a seguinte nomenclatura:
+É possível que o componente já exista com esse nome, caso isso aconteça mude o nome do seu componente no arquivo `package.json`. Lembre que é possível colocar um escopo,  utilizando a seguinte nomenclatura:
 
 ```
 @[ESCOPO]/[NOME_PROJETO]
