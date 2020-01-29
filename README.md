@@ -4,13 +4,15 @@ No dia a dia utilizamos várias bibliotecas para React ou Javascript com o objet
 
 Se você chegou até aqui é porque tem interesse em aprender como desenvolver essas bibliotecas. Existem algumas ferramentas, CLIs e scripts, que facilitam e automatizam esse processo, você pode encontrar mais sobre essas ferramentas [aqui](BIBLIOTECAS.md). Mas aqui vamos entender de forma manual como configurar e desenvolver uma biblioteca.
 
+A biblioteca que iremos criar será um componente que estiliza uma mensagem de erro em requisições dentro de uma aplicação. Ele terá como propriedade um código de erro e uma descrição.
+
 ## Primeiro vamos criar as pastas e inicializar um projeto através do yarn
 
 Nosso primeiro passo é iniciar um projeto através do yarn e criar algumas pastas
 
 ```bash
-mkdir react-library-test
-cd react-library-test
+mkdir react-error-screen
+cd react-error-screen
 mkdir src
 mkdir public
 yarn init
@@ -26,22 +28,59 @@ yarn add -D react react-dom prop-types
 
 ## Já podemos iniciar nosso componente que se tornará uma biblioteca
 
-Nessa fase iremos de fato criar a nossa biblioteca react
+Nessa fase iremos de fato criar a nossa biblioteca react.
 
-### Crie o arquivo `src/MyLibrary.js` e coloque o seguinte código
+### Crie o arquivo `src/ErrorComponent.js` e coloque o seguinte código
 
 ```jsx
-export { default } from "./MyLibrary";
+import React from "react";
+import PropTypes from "prop-types";
+
+const ErrorComponent = ({ error, description }) => (
+  <div style={styles.root}>
+    <h2 style={styles.error}>{error}</h2>
+    <h4 style={styles.description}>{description}</h4>
+  </div>
+);
+
+const styles = {
+  root: {
+    display: "flex",
+    width: "100%",
+    height: "100%",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+    padding: "0% 30%",
+    boxSizing: "border-box"
+  },
+  error: {
+    fontSize: 100,
+    fontFamily: "arial",
+    fontWeight: 700,
+    margin: 0
+  },
+  description: {
+    fontSize: 40,
+    fontWeight: 100,
+    fontFamily: "arial",
+    margin: 0,
+    textAlign: "center"
+  }
+};
+
+ErrorComponent.propTypes = {
+  error: PropTypes.number,
+  description: PropTypes.string
+};
+
+export default ErrorComponent;
 ```
 
 ### Crie o arquivo `src/index.js` e coloque o seguinte código
 
 ```jsx
-import React from "react";
-
-const MyLibraryComponent = () => <div>MyLibrary</div>;
-
-export default MyLibraryComponent;
+export { default } from "./ErrorComponent";
 ```
 
 ## Vamos agora criar uma área para visualizar o componente
@@ -58,7 +97,7 @@ Para iniciarmos a aplicação através do webpack precisamos de um arquivo base 
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>MyLibrary</title>
+    <title>Minha Biblioteca</title>
   </head>
   <body>
     <div id="root"></div>
@@ -73,9 +112,11 @@ Precisamos também criar nosso arquivo jsx de entrada, normalmente nas aplicaç�
 ```jsx
 import React from "react";
 import ReactDOM from "react-dom";
-import MyLibrary from "../src";
+import ErrorScreen from "../src";
 
-const App = () => <MyLibrary />;
+const App = () => (
+  <ErrorScreen error={503} description="Ocorreu um problema no servidor" />
+);
 
 ReactDOM.render(<App />, document.getElementById("root"));
 ```
