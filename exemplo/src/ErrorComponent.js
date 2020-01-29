@@ -16,12 +16,14 @@ const styles = {
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "column",
-    padding: "0% 30%",
+    padding: "0 30%",
     boxSizing: "border-box",
-    textAlign: "center"
+    textAlign: "center",
+    backgroundColor: "#EAEAEA",
+    fontFamily: "arial"
   },
-  error: { fontSize: 100, fontFamily: "arial", fontWeight: 700, margin: 0 },
-  description: { fontSize: 40, fontWeight: 100, fontFamily: "arial", margin: 0 }
+  error: { fontSize: 100, fontWeight: 700, margin: 0 },
+  description: { fontSize: 40, fontWeight: 100, margin: 0 }
 };
 
 ErrorComponent.propTypes = {

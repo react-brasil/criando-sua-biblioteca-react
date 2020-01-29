@@ -52,21 +52,13 @@ const styles = {
     justifyContent: "center",
     flexDirection: "column",
     padding: "0% 30%",
-    boxSizing: "border-box"
+    boxSizing: "border-box",
+    backgroundColor: "#EAEAEA",
+    textAlign: "center",
+    fontFamily: "arial"
   },
-  error: {
-    fontSize: 100,
-    fontFamily: "arial",
-    fontWeight: 700,
-    margin: 0
-  },
-  description: {
-    fontSize: 40,
-    fontWeight: 100,
-    fontFamily: "arial",
-    margin: 0,
-    textAlign: "center"
-  }
+  error: { fontSize: 100, fontWeight: 700, margin: 0 },
+  description: { fontSize: 40, fontWeight: 100, margin: 0 }
 };
 
 ErrorComponent.propTypes = {
@@ -199,7 +191,7 @@ Para criar os scripts, vá no arquivo `package.json` e insira o seguinte código
 }
 ```
 
-Perceba que no build todo o conteúdo será transpilado para uma pasta chamada dist, para que outra lib ao utilizar seu módulo consiga utilizar na raiz modifique as propriedades `main e `module`.
+Perceba que no build todo o conteúdo será transpilado para uma pasta chamada dist, para que outra lib ao utilizar seu módulo consiga utilizar na raiz modifique as propriedades `main e`module`.
 
 ```json
 {
@@ -238,7 +230,7 @@ Você já deve ta muito feliz por ver seu componente funcionando e querendo usar
 npm publish
 ```
 
-É possível que o componente já exista com esse nome, caso isso aconteça mude o nome do seu componente no arquivo `package.json`. Lembre que é possível colocar um escopo,  utilizando a seguinte nomenclatura:
+É possível que o componente já exista com esse nome, caso isso aconteça mude o nome do seu componente no arquivo `package.json`. Lembre que é possível colocar um escopo, utilizando a seguinte nomenclatura:
 
 ```
 @[ESCOPO]/[NOME_PROJETO]
