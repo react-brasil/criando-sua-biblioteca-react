@@ -227,6 +227,7 @@ No diretório `dist` que está na raiz do seu projeto, você verá seu component
 Você já deve ta muito feliz por ver seu componente funcionando e querendo usar em seu projeto. Então vamos agora publicar esse componente, e essa é a etapa mais simples. Rode o seguinte comando:
 
 ```bash
+npm login
 npm publish
 ```
 
