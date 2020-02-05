@@ -5,6 +5,10 @@
   "author": "André Lins",
   "license": "MIT",
   "private": false,
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "devDependencies": {
     "prop-types": "^15.7.2",
     "react": "^16.12.0",

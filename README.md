@@ -191,12 +191,20 @@ Para criar os scripts, vá no arquivo `package.json` e insira o seguinte código
 }
 ```
 
-Perceba que no build todo o conteúdo será transpilado para uma pasta chamada dist, para que outra lib ao utilizar seu módulo consiga utilizar na raiz modifique as propriedades `main e`module`.
+Perceba que no build todo o conteúdo será transpilado para uma pasta chamada dist, para que outra lib ao utilizar seu módulo consiga utilizar na raiz modifique as propriedades `main` e `module`.
 
 ```json
 {
   "main": "dist/index.js",
   "module": "dist/index.js"
+}
+```
+
+Além disso nosso projeto tem várias configurações que não serão necessárias no pacote final da nossa biblioteca. Para diminuir o tamanho do pacote e só colocar o essencial, utilize a propriedade `files` para isso, fazendo da seguinte maneira.
+
+```json
+{
+  "files": ["dist", "README.md"]
 }
 ```
 
