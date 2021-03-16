@@ -185,7 +185,7 @@ Para criar os scripts, vá no arquivo `package.json` e insira o seguinte código
 ```json
 {
   "scripts": {
-    "start": "webpack-dev-server --progress --inline --hot --port 8080",
+    "start": "webpack serve --progress --inline --hot --port 8080",
     "build": "cross-env NODE_ENV=production babel src --out-dir dist"
   }
 }
